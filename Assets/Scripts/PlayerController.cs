@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
 
   private Quaternion targetRotation;
   private Transform playerCamera;
+  private CharacterController characterController;
   private Animator animator;
 
   private bool isRunning;
@@ -17,6 +18,7 @@ public class PlayerController : MonoBehaviour
   private void Awake() 
   {
     playerCamera = Camera.main.transform;
+    characterController = GetComponent<CharacterController>();
     animator = GetComponent<Animator>();
   }
   private void Update()
@@ -35,7 +37,8 @@ public class PlayerController : MonoBehaviour
 
     float moveSpeed = isRunning ? runSpeed : walkSpeed;
 
-    transform.position += moveDir * moveSpeed * Time.deltaTime;
+    characterController.Move(moveDir * moveSpeed * Time.deltaTime);
+    // transform.position += moveDir * moveSpeed * Time.deltaTime;
 
     if(moveAmount > 0)
       targetRotation = Quaternion.LookRotation(moveDir);
