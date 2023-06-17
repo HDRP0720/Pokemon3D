@@ -4,26 +4,36 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-  [SerializeField] private float moveSpeed = 5f;
+  [SerializeField] private float walkSpeed = 3f;
+  [SerializeField] private float runSpeed = 6f;
   [SerializeField] private float angularSpeed = 500f;
 
   private Quaternion targetRotation;
   private Transform playerCamera;
+  private Animator animator;
+
+  private bool isRunning;
 
   private void Awake() 
   {
     playerCamera = Camera.main.transform;
+    animator = GetComponent<Animator>();
   }
   private void Update()
   {
     float h = Input.GetAxis("Horizontal");
     float v = Input.GetAxis("Vertical");
 
-    float moveAmount = Mathf.Abs(h) + Mathf.Abs(v);
+    if(Input.GetButtonDown("Run"))
+      isRunning = !isRunning;
+
+    float moveAmount = Mathf.Clamp01(Mathf.Abs(h) + Mathf.Abs(v));
 
     var moveInput = new Vector3(h, 0, v);
     float camYRotation = playerCamera.rotation.eulerAngles.y;
     var moveDir = Quaternion.Euler(0, camYRotation, 0) * moveInput;
+
+    float moveSpeed = isRunning ? runSpeed : walkSpeed;
 
     transform.position += moveDir * moveSpeed * Time.deltaTime;
 
@@ -31,5 +41,7 @@ public class PlayerController : MonoBehaviour
       targetRotation = Quaternion.LookRotation(moveDir);
 
     transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, angularSpeed * Time.deltaTime);
+
+    animator.SetFloat("moveAmount", moveAmount * moveSpeed / runSpeed, 0.2f, Time.deltaTime);
   }     
 }
