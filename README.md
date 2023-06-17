@@ -6,3 +6,4 @@
   * Idle
   * Walking
   * Running
+  * Jump Over

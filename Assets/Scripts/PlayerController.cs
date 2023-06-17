@@ -13,7 +13,8 @@ public class PlayerController : MonoBehaviour
   private CharacterController characterController;
   private Animator animator;
 
-  private bool isRunning;
+  private bool bIsRunning;
+  private bool bInAction;
 
   private void Awake() 
   {
@@ -23,11 +24,16 @@ public class PlayerController : MonoBehaviour
   }
   private void Update()
   {
+    if(bInAction) return;
+    
     float h = Input.GetAxis("Horizontal");
     float v = Input.GetAxis("Vertical");
 
     if(Input.GetButtonDown("Run"))
-      isRunning = !isRunning;
+      bIsRunning = !bIsRunning;
+
+    if (Input.GetButtonDown("Jump"))    
+      StartCoroutine(DoAction("Dive"));
 
     float moveAmount = Mathf.Clamp01(Mathf.Abs(h) + Mathf.Abs(v));
 
@@ -35,7 +41,7 @@ public class PlayerController : MonoBehaviour
     float camYRotation = playerCamera.rotation.eulerAngles.y;
     var moveDir = Quaternion.Euler(0, camYRotation, 0) * moveInput;
 
-    float moveSpeed = isRunning ? runSpeed : walkSpeed;
+    float moveSpeed = bIsRunning ? runSpeed : walkSpeed;
 
     characterController.Move(moveDir * moveSpeed * Time.deltaTime);
     // transform.position += moveDir * moveSpeed * Time.deltaTime;
@@ -46,5 +52,17 @@ public class PlayerController : MonoBehaviour
     transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, angularSpeed * Time.deltaTime);
 
     animator.SetFloat("moveAmount", moveAmount * moveSpeed / runSpeed, 0.2f, Time.deltaTime);
-  }     
+  }
+
+  private IEnumerator DoAction(string animName)
+  {
+    bInAction = true;
+    animator.CrossFade(animName, 0.2f);
+
+    yield return null; // wait for 1 frame before get state info
+
+    var animState = animator.GetNextAnimatorStateInfo(0);
+    yield return new WaitForSeconds(animState.length);
+    bInAction = false;
+  }
 }
