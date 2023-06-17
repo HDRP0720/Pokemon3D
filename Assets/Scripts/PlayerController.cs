@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,6 +8,8 @@ public class PlayerController : MonoBehaviour
   [SerializeField] private float walkSpeed = 3f;
   [SerializeField] private float runSpeed = 6f;
   [SerializeField] private float angularSpeed = 500f;
+
+  [SerializeField] private GameObject aimCamera;
 
   private Quaternion targetRotation;
   private Transform playerCamera;
@@ -39,15 +42,14 @@ public class PlayerController : MonoBehaviour
     }      
     else if(Input.GetButtonDown("Throw"))
     {
-      bIsAiming = true;
-      animator.SetBool("isAiming", true);
+      Aim();
     }
     else if(Input.GetButtonUp("Throw") && bIsAiming)
     {
       bIsAiming = false; 
       animator.SetBool("isAiming", false);
 
-      StartCoroutine(DoAction("Throw"));
+      StartCoroutine(DoAction("Throw", ()=>aimCamera.SetActive(false)));
     }
 
     float moveAmount = Mathf.Clamp01(Mathf.Abs(h) + Mathf.Abs(v));
@@ -66,9 +68,9 @@ public class PlayerController : MonoBehaviour
     transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, angularSpeed * Time.deltaTime);
 
     animator.SetFloat("moveAmount", moveAmount * moveSpeed / runSpeed, 0.2f, Time.deltaTime);
-  }
+  }  
 
-  private IEnumerator DoAction(string animName)
+  private IEnumerator DoAction(string animName, Action onOver=null)
   {
     bInAction = true;
     animator.CrossFade(animName, 0.2f);
@@ -87,5 +89,15 @@ public class PlayerController : MonoBehaviour
       yield return null; // hold every 1 frame to find when animation is in transition state
     }
     bInAction = false;
+
+    onOver?.Invoke();
+  } 
+
+  private void Aim()
+  {
+    bIsAiming = true;
+    animator.SetBool("isAiming", true);
+
+    aimCamera.SetActive(true);
   }
 }
