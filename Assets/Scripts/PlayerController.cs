@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
   private Animator animator;
 
   private bool bIsRunning;
+  private bool bIsAiming;
   private bool bInAction;
 
   private void Awake() 
@@ -32,8 +33,22 @@ public class PlayerController : MonoBehaviour
     if(Input.GetButtonDown("Run"))
       bIsRunning = !bIsRunning;
 
-    if (Input.GetButtonDown("Jump"))    
+    if (Input.GetButtonDown("Jump"))
+    {
       StartCoroutine(DoAction("Dive"));
+    }      
+    else if(Input.GetButtonDown("Throw"))
+    {
+      bIsAiming = true;
+      animator.SetBool("isAiming", true);
+    }
+    else if(Input.GetButtonUp("Throw") && bIsAiming)
+    {
+      bIsAiming = false; 
+      animator.SetBool("isAiming", false);
+
+      StartCoroutine(DoAction("Throw"));
+    }
 
     float moveAmount = Mathf.Clamp01(Mathf.Abs(h) + Mathf.Abs(v));
 
