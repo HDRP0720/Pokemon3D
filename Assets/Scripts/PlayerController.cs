@@ -25,7 +25,7 @@ public class PlayerController : MonoBehaviour
   private void Update()
   {
     if(bInAction) return;
-    
+
     float h = Input.GetAxis("Horizontal");
     float v = Input.GetAxis("Vertical");
 
@@ -43,8 +43,7 @@ public class PlayerController : MonoBehaviour
 
     float moveSpeed = bIsRunning ? runSpeed : walkSpeed;
 
-    characterController.Move(moveDir * moveSpeed * Time.deltaTime);
-    // transform.position += moveDir * moveSpeed * Time.deltaTime;
+    characterController.Move(moveDir * moveSpeed * Time.deltaTime);   
 
     if(moveAmount > 0)
       targetRotation = Quaternion.LookRotation(moveDir);
@@ -62,7 +61,16 @@ public class PlayerController : MonoBehaviour
     yield return null; // wait for 1 frame before get state info
 
     var animState = animator.GetNextAnimatorStateInfo(0);
-    yield return new WaitForSeconds(animState.length);
+
+    float timer = 0f;
+    while(timer <= animState.length)
+    {
+      timer += Time.deltaTime;
+      if(animator.IsInTransition(0) && timer > 0.4f) // Check when is in transition time between two animations
+        break;
+
+      yield return null; // hold every 1 frame to find when animation is in transition state
+    }
     bInAction = false;
   }
 }
