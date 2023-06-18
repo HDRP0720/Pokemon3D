@@ -5,11 +5,15 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+  [Header("# Movement Parameter")]
   [SerializeField] private float walkSpeed = 3f;
   [SerializeField] private float runSpeed = 6f;
   [SerializeField] private float angularSpeed = 500f;
 
+  [Header("# Cinemachine Camera")]
+  [Tooltip("virtual camera for transition while aim animation")]
   [SerializeField] private GameObject aimCamera;
+  [SerializeField] private Transform aimTarget;
 
   private Quaternion targetRotation;
   private Transform playerCamera;
@@ -19,6 +23,8 @@ public class PlayerController : MonoBehaviour
   private bool bIsRunning;
   private bool bIsAiming;
   private bool bInAction;
+
+  private float aimAngle = 0f;
 
   private void Awake() 
   {
@@ -62,8 +68,23 @@ public class PlayerController : MonoBehaviour
 
     characterController.Move(moveDir * moveSpeed * Time.deltaTime);   
 
-    if(moveAmount > 0)
-      targetRotation = Quaternion.LookRotation(moveDir);
+    if(bIsAiming) // rotate camera during aim mode
+    {
+      // Horizontal Aiming - Rotate the player
+      float rotationY = transform.rotation.eulerAngles.y;
+      rotationY += Input.GetAxis("Camera X");
+      targetRotation = Quaternion.Euler(0, rotationY, 0);
+
+      // Vertical Aiming - Rotate the Aim Target
+      aimAngle += Input.GetAxis("Camera Y");
+      aimAngle = Mathf.Clamp(aimAngle, -40f, 40f);
+      aimTarget.localRotation = Quaternion.Euler(aimAngle, 0, 0);
+    }
+    else
+    {
+      if (moveAmount > 0)
+        targetRotation = Quaternion.LookRotation(moveDir);
+    }    
 
     transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, angularSpeed * Time.deltaTime);
 
