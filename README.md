@@ -2,6 +2,15 @@
 
 This is a 3D pokemon game clone with unity URP template (2021.3.24f1)
 
+## Formula of Throw under physics 
+* Parabolic throwing need some mathmatics
+```math
+velocityY = sqrt{(-2gh)}
+velocityX = d_x / sqrt{(-2h/g)} + sqrt{(2 * (d_y - h)/g)}
+```  
+
+* $$velocityX = d_x / sqrt{(-2h/g)} + sqrt{(2 * (d_y - h)/g)}
+
 ## Used Asset
 * Unity Asset: Supercyan's [Environment Pack: Free Forest Sample](https://assetstore.unity.com/packages/3d/vegetation/environment-pack-free-forest-sample-168396)
 * Sprite: fluxord's circle-03 in [20 Crosshairs for RE](https://opengameart.org/content/20-crosshairs-for-re)
@@ -15,3 +24,6 @@ This is a 3D pokemon game clone with unity URP template (2021.3.24f1)
   * Running
   * Jump Over
   * Throw Object
+
+## Reference
+* [Kinematic Equations](https://youtu.be/v1V3T5BPd7E)

@@ -2740,7 +2740,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7027606368385216138}
-  m_LocalRotation: {x: 0.1329237, y: 0.22648382, z: -0.031216461, w: 0.9643972}
+  m_LocalRotation: {x: 0.1329237, y: 0.226484, z: -0.031216487, w: 0.96439713}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2819,7 +2819,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7027606368493549411}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.7805576, y: 2.5000002, z: -3.5818443}
+  m_LocalPosition: {x: -1.7805595, y: 2.5000002, z: -3.5818443}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3114,6 +3114,8 @@ MonoBehaviour:
   angularSpeed: 500
   aimCamera: {fileID: 7921600456496751366}
   aimTarget: {fileID: 2390326820209839300}
+  pokeballPrefab: {fileID: 1344349940049292521, guid: b284e932a65b7ff4ea1bb59580fc991a,
+    type: 3}
 --- !u!95 &7027606368908647602
 Animator:
   serializedVersion: 5
@@ -3177,7 +3179,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7027606368919457521}
-  m_LocalRotation: {x: 0.09780432, y: 0.22746824, z: -0.022968845, w: 0.9685892}
+  m_LocalRotation: {x: 0.09780429, y: 0.22746845, z: -0.022968858, w: 0.9685891}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -3255,7 +3257,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7027606369246220619}
-  m_LocalRotation: {x: 0.11535985, y: 0.22701414, z: -0.027091678, w: 0.96665543}
+  m_LocalRotation: {x: 0.11535982, y: 0.22701436, z: -0.027091697, w: 0.96665543}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -3463,8 +3465,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7027606369501349927}
-  m_LocalRotation: {x: 0.11535985, y: 0.22701414, z: -0.02709168, w: 0.96665543}
-  m_LocalPosition: {x: -1.7805576, y: 2.5000002, z: -3.5818443}
+  m_LocalRotation: {x: 0.115359806, y: 0.22701433, z: -0.02709169, w: 0.96665543}
+  m_LocalPosition: {x: -1.7805595, y: 2.5000002, z: -3.5818443}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

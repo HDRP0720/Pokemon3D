@@ -15,8 +15,12 @@ public class PlayerController : MonoBehaviour
   [SerializeField] private GameObject aimCamera;
   [SerializeField] private Transform aimTarget;
 
+  [SerializeField] private Projectile pokeballPrefab;
+  [SerializeField] private float throwRange = 15f;
+  
+  private Transform playerCameraTransform;
+  private Camera playerCamera;
   private Quaternion targetRotation;
-  private Transform playerCamera;
   private CharacterController characterController;
   private Animator animator;
 
@@ -28,7 +32,8 @@ public class PlayerController : MonoBehaviour
 
   private void Awake() 
   {
-    playerCamera = Camera.main.transform;
+    playerCameraTransform = Camera.main.transform;
+    playerCamera = Camera.main;
     characterController = GetComponent<CharacterController>();
     animator = GetComponent<Animator>();
   }
@@ -61,7 +66,7 @@ public class PlayerController : MonoBehaviour
     float moveAmount = Mathf.Clamp01(Mathf.Abs(h) + Mathf.Abs(v));
 
     var moveInput = new Vector3(h, 0, v);
-    float camYRotation = playerCamera.rotation.eulerAngles.y;
+    float camYRotation = playerCameraTransform.rotation.eulerAngles.y;
     var moveDir = Quaternion.Euler(0, camYRotation, 0) * moveInput;
 
     float moveSpeed = bIsRunning ? runSpeed : walkSpeed;
@@ -114,11 +119,31 @@ public class PlayerController : MonoBehaviour
     onOver?.Invoke();
   } 
 
+  Projectile pokeballObj;
   private void Aim()
   {
     bIsAiming = true;
     animator.SetBool("isAiming", true);
 
     aimCamera.SetActive(true);
+
+    pokeballObj = Instantiate(pokeballPrefab, animator.GetBoneTransform(HumanBodyBones.RightHand));
+  }
+
+  // Animation event function
+  Vector3 targetPos;
+  private void ThrowPokeball()
+  {
+    Vector3 rayOrigin = playerCamera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f));
+    if (Physics.Raycast(rayOrigin, playerCamera.transform.forward, out RaycastHit hit, throwRange))
+    {
+      targetPos = hit.point;
+    }
+    else
+    {
+      targetPos = rayOrigin + playerCamera.transform.forward * throwRange;
+    }
+
+    pokeballObj.LaunchToTarget(targetPos);
   }
 }
