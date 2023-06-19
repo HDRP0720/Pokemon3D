@@ -4,11 +4,16 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
+  [SerializeField] private GameObject pokemonPrefab;
+  [SerializeField] private LayerMask terrainLayer;
+
+  private Transform cameraTransform;
   private Rigidbody rb;
 
   private void Awake() 
   {
     rb = GetComponent<Rigidbody>();
+    cameraTransform = Camera.main.transform;
   }
 
   public void LaunchToTarget(Vector3 targetPos)
@@ -17,7 +22,6 @@ public class Projectile : MonoBehaviour
     rb.isKinematic = false;
     rb.velocity = CalculateVelocity(targetPos);
   }
-
   private Vector3 CalculateVelocity(Vector3 targetPos)
   {
     var startPos = transform.position;
@@ -32,5 +36,25 @@ public class Projectile : MonoBehaviour
     var velocityXZ = diffXZ / (Mathf.Sqrt(-2 * h / g) + Mathf.Sqrt(2 * (diffY - h) / g));
 
     return velocityY + velocityXZ;
+  }
+
+  private void OnCollisionEnter(Collision other) 
+  {
+    if(other.gameObject.tag != "Player")
+    {
+      // Spawn Pokemon
+      var rayOrigin = transform.position + Vector3.up;
+      if(Physics.Raycast(rayOrigin, Vector3.down, out RaycastHit hit, 10f, terrainLayer))
+      {
+        var pokemonObj = Instantiate(pokemonPrefab, hit.point, Quaternion.identity);
+
+        // face pokemon to player
+        var dirToCam = (cameraTransform.position - hit.point).normalized;
+        dirToCam.y = 0;
+        pokemonObj.transform.forward = dirToCam;
+      }
+
+      Destroy(gameObject);
+    }
   }
 }

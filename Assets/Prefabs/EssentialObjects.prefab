@@ -3074,7 +3074,7 @@ GameObject:
   - component: {fileID: 7027606368908647605}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3116,6 +3116,7 @@ MonoBehaviour:
   aimTarget: {fileID: 2390326820209839300}
   pokeballPrefab: {fileID: 1344349940049292521, guid: b284e932a65b7ff4ea1bb59580fc991a,
     type: 3}
+  throwRange: 15
 --- !u!95 &7027606368908647602
 Animator:
   serializedVersion: 5
@@ -3179,7 +3180,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7027606368919457521}
-  m_LocalRotation: {x: 0.09780429, y: 0.22746845, z: -0.022968858, w: 0.9685891}
+  m_LocalRotation: {x: 0.0978043, y: 0.22746845, z: -0.022968864, w: 0.9685891}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

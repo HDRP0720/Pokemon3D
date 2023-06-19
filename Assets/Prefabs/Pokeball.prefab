@@ -114,7 +114,7 @@ Rigidbody:
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!114 &1344349940049292521
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -127,3 +127,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc246d148efeb514a9c2b3bcc048f467, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pokemonPrefab: {fileID: 5221341127648719961, guid: ce123d2c6fa46cf4ebd0cdbdafb5508e,
+    type: 3}
+  terrainLayer:
+    serializedVersion: 2
+    m_Bits: 64

@@ -14,6 +14,7 @@ This is a 3D pokemon game clone with unity URP template (2021.3.24f1)
 ## Used Asset
 * Unity Asset: Supercyan's [Environment Pack: Free Forest Sample](https://assetstore.unity.com/packages/3d/vegetation/environment-pack-free-forest-sample-168396)
 * Sprite: fluxord's circle-03 in [20 Crosshairs for RE](https://opengameart.org/content/20-crosshairs-for-re)
+* [3DS-Pokemon XY - 001 Bulbasaur](https://www.models-resource.com/download/9318/) change scale factor from 1 to 0.4
 * The asset location should be in `/Assets/Art/Asset`
 
 ## Mixamo Character & Animations
