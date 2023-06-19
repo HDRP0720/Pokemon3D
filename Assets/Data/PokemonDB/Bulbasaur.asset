@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 783263f866c9f1f419a5b698c16a5472, type: 3}
+  m_Name: Bulbasaur
+  m_EditorClassIdentifier: 
+  pokemonName: Bulbasaur
+  description: 
+  pokemonPrefab: {fileID: 5221341127648719961, guid: ce123d2c6fa46cf4ebd0cdbdafb5508e,
+    type: 3}
+  pokemonType1: 5
+  pokemonType2: 8
+  maxHp: 45
+  attack: 49
+  defense: 49
+  spAttack: 65
+  spDefense: 65
+  speed: 45
+  learnableSkills:
+  - skillBase: {fileID: 11400000, guid: 4a2c26985f56c8c4eb31c5ef04249034, type: 2}
+    level: 1
+  - skillBase: {fileID: 11400000, guid: 3af318a5c29848f4b83ccb44ad81b060, type: 2}
+    level: 3
+  - skillBase: {fileID: 11400000, guid: f47070e5e3dad8b4e8cf4aedbe2527af, type: 2}
+    level: 12

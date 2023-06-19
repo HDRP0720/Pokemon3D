@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviour
   private Quaternion targetRotation;
   private CharacterController characterController;
   private Animator animator;
+  private PokemonParty playerParty;
 
   private bool bIsRunning;
   private bool bIsAiming;
@@ -36,6 +37,7 @@ public class PlayerController : MonoBehaviour
     playerCamera = Camera.main;
     characterController = GetComponent<CharacterController>();
     animator = GetComponent<Animator>();
+    playerParty = GetComponent<PokemonParty>();
   }
   private void Update()
   {
@@ -135,15 +137,12 @@ public class PlayerController : MonoBehaviour
   private void ThrowPokeball()
   {
     Vector3 rayOrigin = playerCamera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f));
-    if (Physics.Raycast(rayOrigin, playerCamera.transform.forward, out RaycastHit hit, throwRange))
-    {
-      targetPos = hit.point;
-    }
-    else
-    {
-      targetPos = rayOrigin + playerCamera.transform.forward * throwRange;
-    }
+    if (Physics.Raycast(rayOrigin, playerCamera.transform.forward, out RaycastHit hit, throwRange))    
+      targetPos = hit.point;    
+    else    
+      targetPos = rayOrigin + playerCamera.transform.forward * throwRange;    
 
+    pokeballObj.PokemonToSpawn = playerParty.GetPartyMembers[0];
     pokeballObj.LaunchToTarget(targetPos);
   }
 }

@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
-  [SerializeField] private GameObject pokemonPrefab;
+  // [SerializeField] private GameObject pokemonPrefab;
   [SerializeField] private LayerMask terrainLayer;
   [SerializeField] private GameObject spawnEffectPrefab;
+
+  public Pokemon PokemonToSpawn { get; set; }
 
   private Transform cameraTransform;
   private Rigidbody rb;
@@ -61,7 +63,7 @@ public class Projectile : MonoBehaviour
       yield return new WaitForSeconds(0.2f);
 
       // face pokemon to player    
-      var pokemonObj = Instantiate(pokemonPrefab, hit.point, Quaternion.identity);
+      var pokemonObj = Instantiate(PokemonToSpawn.Base.GetPokemonObj, hit.point, Quaternion.identity);
       pokemonObj.transform.forward = dirToCam;
     }
 
