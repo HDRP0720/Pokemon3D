@@ -28,3 +28,4 @@ This is a 3D pokemon game clone with unity URP template (2021.3.24f1)
 
 ## Reference
 * [Kinematic Equations](https://youtu.be/v1V3T5BPd7E)
+* https://www.models-resource.com/3ds/pokemonxy

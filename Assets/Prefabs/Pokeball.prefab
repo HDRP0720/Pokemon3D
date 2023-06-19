@@ -132,3 +132,5 @@ MonoBehaviour:
   terrainLayer:
     serializedVersion: 2
     m_Bits: 64
+  spawnEffectPrefab: {fileID: 2806409481815259428, guid: dd3e316c260b29e42a50b95d6970aa82,
+    type: 3}

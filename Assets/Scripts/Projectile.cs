@@ -6,6 +6,7 @@ public class Projectile : MonoBehaviour
 {
   [SerializeField] private GameObject pokemonPrefab;
   [SerializeField] private LayerMask terrainLayer;
+  [SerializeField] private GameObject spawnEffectPrefab;
 
   private Transform cameraTransform;
   private Rigidbody rb;
@@ -41,20 +42,29 @@ public class Projectile : MonoBehaviour
   private void OnCollisionEnter(Collision other) 
   {
     if(other.gameObject.tag != "Player")
+      StartCoroutine(SpawnPokemon(other)); // Spawn Pokemon
+  }
+
+  private IEnumerator SpawnPokemon(Collision other)
+  {
+    var rayOrigin = transform.position + Vector3.up;
+    if (Physics.Raycast(rayOrigin, Vector3.down, out RaycastHit hit, 10f, terrainLayer))
     {
-      // Spawn Pokemon
-      var rayOrigin = transform.position + Vector3.up;
-      if(Physics.Raycast(rayOrigin, Vector3.down, out RaycastHit hit, 10f, terrainLayer))
-      {
-        var pokemonObj = Instantiate(pokemonPrefab, hit.point, Quaternion.identity);
+      // calculate direction from camera to spawn point
+      var dirToCam = (cameraTransform.position - hit.point).normalized;
+      dirToCam.y = 0;
 
-        // face pokemon to player
-        var dirToCam = (cameraTransform.position - hit.point).normalized;
-        dirToCam.y = 0;
-        pokemonObj.transform.forward = dirToCam;
-      }
+      // face spawn effect to player
+      var spawnEffect = Instantiate(spawnEffectPrefab, hit.point + Vector3.up * 0.5f, Quaternion.identity);
+      spawnEffect.transform.forward = dirToCam;
 
-      Destroy(gameObject);
+      yield return new WaitForSeconds(0.2f);
+
+      // face pokemon to player    
+      var pokemonObj = Instantiate(pokemonPrefab, hit.point, Quaternion.identity);
+      pokemonObj.transform.forward = dirToCam;
     }
+
+    Destroy(gameObject);
   }
 }
