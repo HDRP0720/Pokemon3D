@@ -28,6 +28,6 @@ This is a 3D pokemon game clone with unity URP template (2021.3.24f1)
   * Throw Object
 
 ## Reference
-* [Kinematic Equations](https://youtu.be/v1V3T5BPd7E)
+* [Kinematic Equations](https://youtu.be/IvT8hjy6q4o)
 * https://www.models-resource.com/3ds/pokemonxy
 * https://pokemondb.net/move/generation/1
